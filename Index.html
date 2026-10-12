@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kapil Waghumbare | SpectroGuard project plan</title>
+<meta name="description" content="Schedule, RACI matrix and risk log for SpectroGuard, a four-model cybersecurity toolkit planned and delivered by Kapil Waghumbare.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#101828; --muted:#566074;
+  --line:#DDE1EA; --accent:#3730A3; --accent-soft:#ECEEFB; --flag:#B42318;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;margin:0;letter-spacing:-0.015em}
+h2{font-size:1.65rem;line-height:1.2;font-weight:700}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:6px;z-index:30}
+.skip:focus{left:8px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(245,246,250,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.08rem;color:var(--ink);text-decoration:none}
+.nav ul{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--muted);text-decoration:none;font-size:.95rem;font-weight:500}
+.nav ul a:hover{color:var(--ink)}
+.btn{display:inline-block;padding:12px 20px;border-radius:8px;font-weight:600;font-size:1rem;text-decoration:none;border:1.5px solid var(--accent)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#2B2585}
+.btn-ghost{background:transparent;color:var(--accent)}
+.btn-ghost:hover{background:var(--accent-soft)}
+.nav .btn{padding:8px 14px;font-size:.92rem}
+
+/* hero */
+.hero{padding:56px 0 8px}
+.hero .wrap{display:grid;grid-template-columns:1.45fr 1fr;gap:56px;align-items:end}
+h1{font-size:clamp(2rem,4.3vw,3.05rem);line-height:1.1;font-weight:700}
+.lede{margin-top:20px;color:var(--muted);max-width:52ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.glance{margin:0}
+.glance div{display:grid;grid-template-columns:8rem 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:.97rem}
+.glance div:last-child{border-bottom:1px solid var(--line)}
+.glance dt{color:var(--muted)}
+.glance dd{margin:0;font-weight:500}
+
+/* sections */
+section{padding-top:60px}
+.sub{margin-top:8px;color:var(--muted);max-width:60ch}
+
+/* gantt */
+.gantt{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;--lw:210px}
+.g-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.g-tools .grp{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.g-tools .lbl{font-size:.88rem;color:var(--muted);margin-right:2px}
+.tbtn{font:inherit;font-size:.9rem;font-weight:600;padding:6px 12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;cursor:pointer}
+.tbtn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.tbtn:disabled{opacity:.4;cursor:default}
+.tbtn.sq{width:36px;padding:6px 0;font-size:1.05rem;line-height:1.2}
+.g-frame{position:relative}
+.g-frame::after{content:"";position:absolute;top:0;right:0;bottom:0;width:44px;background:linear-gradient(90deg,rgba(255,255,255,0),#fff);pointer-events:none;transition:opacity .2s}
+.gantt.at-end .g-frame::after{opacity:0}
+.g-scroll{overflow-x:auto;cursor:grab;overscroll-behavior-x:contain}
+.g-scroll.dragging{cursor:grabbing;user-select:none}
+.g-scroll:focus-visible{outline-offset:-3px}
+.g-inner{width:calc(var(--lw) + var(--w))}
+.g-head,.g-row{display:grid;grid-template-columns:var(--lw) 1fr;align-items:center;background:var(--surface)}
+.g-head{height:58px}
+.g-label{position:sticky;left:0;z-index:2;background:inherit;display:flex;align-items:center;gap:10px;height:100%;min-width:0;padding:0 12px 0 20px;font-size:.93rem;font-weight:500;box-shadow:1px 0 0 var(--line)}
+.g-label .tx{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gantt.scrolled .g-label{box-shadow:1px 0 0 var(--line),8px 0 10px -6px rgba(16,24,40,.22)}
+.g-axis{position:relative;height:100%}
+.ax-m,.ax-w{position:absolute;overflow:hidden;white-space:nowrap;border-left:1px solid var(--line);padding-left:5px;font-size:.76rem;color:var(--muted)}
+.ax-m{top:0;height:29px;line-height:29px;font-weight:500;color:var(--ink)}
+.ax-w{top:29px;height:29px;line-height:29px;border-top:1px solid var(--line)}
+.g-row{width:100%;height:46px;border:0;border-top:1px solid var(--line);padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.g-row:hover{background:#F4F5FC}
+.g-row[aria-pressed="true"]{background:var(--accent-soft)}
+.g-row:focus-visible{outline-offset:-3px}
+.g-track{position:relative;height:100%;background-image:linear-gradient(90deg,#EDEFF5 0 1px,transparent 1px);background-size:calc(7 * var(--px)) 100%;background-position:calc(3 * var(--px)) 0}
+.m-line{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(16,24,40,.3)}
+.bar{position:absolute;top:16px;height:14px;min-width:5px;border-radius:3px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(16,24,40,.3)}
+.bar.buf{background:repeating-linear-gradient(135deg,var(--c) 0 3px,rgba(255,255,255,.6) 3px 6px)}
+.anim .bar{transform-origin:left center;animation:draw .75s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 70ms)}
+.flag{position:absolute;top:1px;width:19px;height:19px;margin-left:-9px;border-radius:50%;background:var(--flag);color:#fff;border:2px solid var(--surface);box-sizing:content-box;font-size:.62rem;font-weight:600;line-height:19px;text-align:center}
+@keyframes draw{from{transform:scaleX(0)}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;padding:13px 20px;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{display:inline-block;width:22px;height:12px;border-radius:3px;background:var(--muted)}
+.sw.buf{background:repeating-linear-gradient(135deg,var(--muted) 0 3px,rgba(255,255,255,.6) 3px 6px)}
+.sw.fl{width:14px;height:14px;border-radius:50%;background:var(--flag)}
+.detail{padding:20px;border-top:1px solid var(--line);background:#FAFAFD}
+.detail h3{margin-bottom:12px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 24px;margin:0}
+.kv dt{font-size:.86rem;color:var(--muted)}
+.kv dd{margin:2px 0 0;font-weight:500}
+.risk-note.other{margin-top:16px;padding:12px 14px;border-left:3px solid var(--flag);background:#FEF3F2;border-radius:0 8px 8px 0;font-size:.97rem;max-width:80ch}
+.risk-note{margin-top:16px;padding:12px 14px;border-left:3px solid var(--flag);background:#FEF3F2;border-radius:0 8px 8px 0;font-size:.97rem;max-width:80ch}
+
+/* project */
+.split{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;margin-top:22px}
+.models{margin:0}
+.models div{padding:14px 0;border-top:1px solid var(--line)}
+.models div:last-child{border-bottom:1px solid var(--line)}
+.models dt{font-weight:600}
+.models dd{margin:2px 0 0;color:var(--muted)}
+
+/* documents */
+.docs{list-style:none;margin:22px 0 0;padding:0}
+.docs li{display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:center;padding:18px 0;border-top:1px solid var(--line)}
+.docs li:last-child{border-bottom:1px solid var(--line)}
+.docs strong{display:block;font-size:1.05rem}
+.docs p{color:var(--muted);font-size:.97rem}
+.docs .links{display:flex;gap:18px;font-weight:600;font-size:.97rem}
+
+/* tables */
+.table-scroll{margin-top:22px;overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+.risk-table{min-width:1000px}
+.raci-table{min-width:600px}
+th{text-align:left;font-weight:600;padding:12px 14px;background:#EEF0F7;border-bottom:1px solid var(--line)}
+td{padding:14px;vertical-align:top;border-top:1px solid var(--line)}
+tbody tr:first-child td{border-top:0}
+.raci-table td{padding:9px 14px;vertical-align:middle}
+.raci-table th.c,.raci-table td.c{text-align:center}
+tr.nil td{color:var(--muted)}
+.lvl{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.84rem;font-weight:600;white-space:nowrap}
+.lvl.high{background:#FEE4E2;color:#912018}
+.lvl.med{background:#FEF0C7;color:#7A4A06}
+.lvl.low{background:#DCFAE6;color:#085D3A}
+.rc{display:inline-block;min-width:38px;padding:2px 8px;border-radius:6px;font-size:.86rem;font-weight:600;text-align:center}
+.rc.R{background:#DBEAFE;color:#1E40AF}
+.rc.A{background:#EDE9FE;color:#5B21B6}
+.rc.AR{background:#C7D2FE;color:#312E81}
+.rc.C{background:#FEF3C7;color:#92400E}
+.rc.I{background:#EEF0F4;color:#475467}
+.scale{margin-top:14px;color:var(--muted);font-size:.93rem;max-width:80ch}
+
+.lessons{margin:22px 0 0;padding-left:1.2rem;max-width:62ch}
+.lessons li{margin-bottom:10px}
+
+footer{margin-top:72px;padding:40px 0 64px;border-top:1px solid var(--line)}
+footer .cta{margin-top:20px}
+.fine{margin-top:36px;color:var(--muted);font-size:.9rem}
+
+@media (max-width:600px){.gantt{--lw:140px}.g-label{padding-left:14px;font-size:.88rem}}
+@media (max-width:860px){
+  .hero .wrap,.split{grid-template-columns:1fr;gap:32px}
+  .nav ul li:not(:last-child){display:none}
+  .docs li{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .anim .bar{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Kapil Waghumbare</a>
+    <ul>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#documents">Documents</a></li>
+      <li><a href="#raci">RACI</a></li>
+      <li><a href="#risks">Risk log</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn btn-ghost" href="Kapil_Waghumbare_Resume_V4.pdf" download>Resume</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <h1>I planned and delivered SpectroGuard, a four-model cybersecurity toolkit, in eight months with a team of three.</h1>
+        <p class="lede">Final-year project at MMIT, Pune. Below are the real schedule, RACI matrix and risk log. I am looking for PMO Analyst and Project Coordinator roles.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#documents">View the documents</a>
+          <a class="btn btn-ghost" href="Kapil_Waghumbare_Resume_V4.pdf" download>Download resume</a>
+        </div>
+      </div>
+      <dl class="glance">
+        <div><dt>Project</dt><dd>SpectroGuard</dd></div>
+        <div><dt>Sponsor</dt><dd>MMIT, Pune</dd></div>
+        <div><dt>Project manager</dt><dd>Kapil Waghumbare</dd></div>
+        <div><dt>Assistant PM</dt><dd>Pratiksha Alhat</dd></div>
+        <div><dt>Team</dt><dd>Kapil, Pratiksha, Shraddha Gadekar</dd></div>
+        <div><dt>Dates</dt><dd>23 Sep 2025 to 22 May 2026</dd></div>
+        <div><dt>Status</dt><dd>Completed</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section id="schedule">
+    <div class="wrap">
+      <h2>Project schedule</h2>
+      <p class="sub">Scroll or drag sideways. Task names stay in place. Select a row for details.</p>
+      <div class="gantt" id="gantt">
+        <div class="g-tools">
+          <div class="grp"><span class="lbl">Zoom</span>
+            <button type="button" class="tbtn sq" id="zout" aria-label="Zoom out">&minus;</button>
+            <button type="button" class="tbtn sq" id="zin" aria-label="Zoom in">+</button>
+          </div>
+          <div class="grp"><span class="lbl">Jump to</span>
+            <button type="button" class="tbtn" data-jump="start">Start</button>
+            <button type="button" class="tbtn" data-jump="R1">R1</button>
+            <button type="button" class="tbtn" data-jump="R2">R2</button>
+            <button type="button" class="tbtn" data-jump="R3">R3</button>
+            <button type="button" class="tbtn" data-jump="end">End</button>
+          </div>
+        </div>
+        <div class="g-frame">
+          <div class="g-scroll" id="scroller" tabindex="0" role="region" aria-label="Project schedule, scrolls sideways">
+            <div class="g-inner" id="chart"></div>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="sw"></i>Planned work</span>
+          <span><i class="sw buf"></i>Buffer days</span>
+          <span><i class="sw fl"></i>Risk that occurred</span>
+        </div>
+        <div class="detail" id="detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="wrap">
+      <h2>What SpectroGuard does</h2>
+      <div class="split">
+        <p>A web toolkit that gives non-technical users automated, real-time checks of malicious links and fake login pages.</p>
+        <dl class="models">
+          <div><dt>Password predictability checker</dt><dd>Higher-order Markov model</dd></div>
+          <div><dt>URL safety validator</dt><dd>Blacklist and heuristic analysis</dd></div>
+          <div><dt>Phishing website detector</dt><dd>Support vector machine</dd></div>
+          <div><dt>Document validator</dt><dd>SHA-256</dd></div>
+        </dl>
+      </div>
+      <!-- Screenshots: add images/spectroguard-home.png, then place here:
+           <img src="images/spectroguard-home.png" alt="SpectroGuard home screen" style="max-width:100%;border-radius:12px;margin-top:32px"> -->
+    </div>
+  </section>
+
+  <section id="documents">
+    <div class="wrap">
+      <h2>Project documents</h2>
+      <ul class="docs">
+        <li>
+          <div><strong>Project charter</strong><p>Goal, objective, stakeholders, team.</p></div>
+          <div class="links"><a href="SpectroGuard_Project_Charter.pdf" target="_blank" rel="noopener">Open</a><a href="SpectroGuard_Project_Charter.pdf" download>Download</a></div>
+        </li>
+        <li>
+          <div><strong>Work breakdown structure</strong><p>Ten work areas with owners and dates.</p></div>
+          <div class="links"><a href="SpectroGuard_WBS.pdf" target="_blank" rel="noopener">Open</a><a href="SpectroGuard_WBS.pdf" download>Download</a></div>
+        </li>
+        <li>
+          <div><strong>Gantt chart</strong><p>Weekly timeline, September 2025 to May 2026.</p></div>
+          <div class="links"><a href="SpectroGuard_Gantt_Chart.pdf" target="_blank" rel="noopener">Open</a><a href="SpectroGuard_Gantt_Chart.pdf" download>Download</a></div>
+        </li>
+        <li>
+          <div><strong>RACI matrix</strong><p>Responsibility for every task.</p></div>
+          <div class="links"><a href="SpectroGuard_RACI_Matrix.pdf" target="_blank" rel="noopener">Open</a><a href="SpectroGuard_RACI_Matrix.pdf" download>Download</a></div>
+        </li>
+        <li>
+          <div><strong>Risk log</strong><p>Four risks with ratings and outcomes.</p></div>
+          <div class="links"><a href="SpectroGuard_Risk_Log.pdf" target="_blank" rel="noopener">Open</a><a href="SpectroGuard_Risk_Log.pdf" download>Download</a></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="raci">
+    <div class="wrap">
+      <h2>RACI matrix</h2>
+      <div class="table-scroll">
+        <table class="raci-table">
+          <thead><tr><th>No.</th><th>Task</th><th class="c">Kapil</th><th class="c">Pratiksha</th><th class="c">Shraddha</th><th class="c">Swapnil Sir</th></tr></thead>
+          <tbody id="raci-body"></tbody>
+        </table>
+      </div>
+      <p class="scale">R responsible, A accountable, C consulted, I informed.</p>
+    </div>
+  </section>
+
+  <section id="risks">
+    <div class="wrap">
+      <h2>Risk log</h2>
+      <p class="sub">Three of four risks occurred.</p>
+      <div class="table-scroll">
+        <table class="risk-table">
+          <thead>
+            <tr><th>ID</th><th>Risk</th><th>Rating</th><th>Mitigation</th><th>What happened</th><th>Action taken</th><th>Date</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>R1</td><td>Password model not learning patterns while training</td>
+              <td><span class="lvl med">Medium</span><br>3 × 4 = 12</td>
+              <td>Check and optimize data set before training</td>
+              <td>Password model was not able to learn patterns, which caused predictability issue</td>
+              <td>Changed data set and optimized it according to the higher order</td>
+              <td>29 Nov 2025</td><td>Closed</td>
+            </tr>
+            <tr>
+              <td>R2</td><td>URL model accuracy under target</td>
+              <td><span class="lvl high">High</span><br>3 × 5 = 15</td>
+              <td>Check data set and train-test split before training</td>
+              <td>Accuracy was not up to the target (93%+)</td>
+              <td>Retrained the URL model with more data</td>
+              <td>7 Jan 2026</td><td>Closed</td>
+            </tr>
+            <tr>
+              <td>R3</td><td>Phishing model file corrupted</td>
+              <td><span class="lvl med">Medium</span><br>2 × 4 = 8</td>
+              <td>Keep backups and version control for trained models</td>
+              <td>Phishing model was not able to fetch features from a website</td>
+              <td>Restored model from Google Drive. Backup was an older version, so modified it to work with current Python version (3.14.3)</td>
+              <td>23 Feb 2026</td><td>Closed</td>
+            </tr>
+            <tr class="nil">
+              <td>R4</td><td>Python version may not match the backend</td>
+              <td><span class="lvl low">Low</span><br>2 × 2 = 4</td>
+              <td>Check version requirements for development and keep track of them</td>
+              <td colspan="2">Did not occur</td>
+              <td>Not applicable</td><td>Not occurred</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="scale">Score is probability × impact, each rated 1 to 5. Low 1 to 5, medium 6 to 12, high 15 to 25.</p>
+    </div>
+  </section>
+
+  <section id="learned">
+    <div class="wrap">
+      <h2>Lessons learned</h2>
+      <ul class="lessons">
+        <li>Back up every trained model. The corrupted phishing model was restored in under a day.</li>
+        <li>Check the data set before training starts.</li>
+        <li>Set a target accuracy before training.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p class="sub">Open to PMO Analyst and Project Coordinator roles in Pune and remote.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="mailto:kapilwaghumbare@gmail.com">kapilwaghumbare@gmail.com</a>
+      <a class="btn btn-ghost" href="Kapil_Waghumbare_Resume_V4.pdf" download>Download resume</a>
+      <!-- LinkedIn: <a class="btn btn-ghost" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a> -->
+    </div>
+    <p class="fine">Kapil Waghumbare, Pune, Maharashtra</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var DAY = 864e5;
+  var T = function (s) { return Date.parse(s + "T00:00:00Z"); };
+  var t0 = T("2025-09-23"), t1 = T("2026-05-28") + DAY;
+  var days = Math.round((t1 - t0) / DAY);
+  var off = function (s) { return (T(s) - t0) / DAY; };
+  var fmt = function (t) {
+    return new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var LEVELS = [4, 6, 9, 14], lv = 1, sel = 3;
+
+  /* Colours match the Gantt sheet. Segments are [start, due, buffer days]. */
+  var rows = [
+    { n: "Data collection", c: "#C00000", o: "Kapil, Shraddha", s: [["2025-09-23", "2025-10-17", 3]] },
+    { n: "Data preprocessing", c: "#FF0000", o: "Shraddha (cleaning), Kapil (optimization)", s: [["2025-10-23", "2025-11-01", 7]] },
+    { n: "Password model", c: "#FFC000", o: "Kapil (development), Pratiksha (training, testing)", s: [["2025-11-10", "2025-12-01", 9], ["2025-12-11", "2025-12-12", 1]],
+      r: { id: "R1", d: "2025-11-29", t: "Model not learning patterns. Changed and optimized the data set. Closed." } },
+    { n: "URL model", c: "#FFFF00", o: "Kapil (development), Pratiksha (training, testing)", s: [["2025-12-15", "2026-01-05", 10], ["2026-01-16", "2026-01-17", 1]],
+      r: { id: "R2", d: "2026-01-07", t: "Accuracy under the 93% target. Retrained with more data. Closed." } },
+    { n: "Phishing model", c: "#92D050", o: "Kapil (development), Pratiksha (training, testing)", s: [["2026-01-20", "2026-02-10", 10], ["2026-02-22", "2026-02-23", 3]],
+      r: { id: "R3", d: "2026-02-23", t: "Model file corrupted. Restored an older backup from Google Drive and updated it for Python 3.14.3. Closed." } },
+    { n: "Hash model", c: "#00B050", o: "Shraddha", s: [["2025-11-10", "2025-11-13", 2]] },
+    { n: "Comparison analysis", c: "#00B0F0", o: "Kapil", s: [["2026-03-01", "2026-04-01", 10], ["2026-04-12", "2026-04-20", 3]] },
+    { n: "UI/UX development", c: "#0070C0", o: "Kapil", s: [["2026-02-27", "2026-04-19", 6]] },
+    { n: "Integration", c: "#002060", o: "Shraddha", s: [["2026-04-26", "2026-05-05", 10]] },
+    { n: "Deployment", c: "#7030A0", o: "Shraddha", s: [["2026-05-16", "2026-05-22", 6]] },
+    { n: "Documentation", c: "#475467", o: "Kapil", s: [["2025-09-23", "2026-05-22", 0]] }
+  ];
+
+  var risks = rows.filter(function (r) { return r.r; }).map(function (r) { return { id: r.r.id, d: r.r.d, t: r.r.t, n: r.n }; });
+  var risks = rows.filter(function (r) { return r.r; }).map(function (r) { return { id: r.r.id, d: r.r.d, t: r.r.t, n: r.n }; });
+  var gantt = document.getElementById("gantt");
+  var scroller = document.getElementById("scroller");
+  var chart = document.getElementById("chart");
+  var detail = document.getElementById("detail");
+  var zin = document.getElementById("zin"), zout = document.getElementById("zout");
+
+  /* Month cells and week cells (week dates follow the Gantt sheet) */
+  var months = [{ off: 0, len: (Date.UTC(2025, 9, 1) - t0) / DAY, label: "Sep" }];
+  var cur = Date.UTC(2025, 9, 1);
+  while (cur < t1) {
+    var dt = new Date(cur), nxt = Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth() + 1, 1);
+    var lab = dt.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" });
+    if (cur === Date.UTC(2025, 9, 1)) lab += " 2025";
+    if (dt.getUTCMonth() === 0) lab += " 2026";
+    months.push({ off: (cur - t0) / DAY, len: (Math.min(nxt, t1) - cur) / DAY, label: lab });
+    cur = nxt;
+  }
+  var weeks = [{ off: 0, len: 3, label: "W1" }];
+  for (var w = 2; w <= 36; w++) weeks.push({ off: 3 + 7 * (w - 2), len: 7, label: "W" + w });
+
+  function render(animate) {
+    var px = LEVELS[lv];
+    chart.style.setProperty("--px", px + "px");
+    chart.style.setProperty("--w", days * px + "px");
+    chart.classList.toggle("anim", !!animate);
+
+    var head = '<div class="g-head"><span class="g-label"></span><div class="g-axis">' +
+      months.map(function (m) { return '<span class="ax-m" style="left:' + m.off * px + "px;width:" + m.len * px + 'px">' + m.label + "</span>"; }).join("") +
+      weeks.map(function (k) { return '<span class="ax-w" style="left:' + k.off * px + "px;width:" + k.len * px + 'px">' + (k.len * px >= 24 ? k.label : "") + "</span>"; }).join("") +
+      "</div></div>";
+
+    var lines = months.slice(1).map(function (m) { return '<span class="m-line" style="left:' + m.off * px + 'px"></span>'; }).join("");
+
+    var body = rows.map(function (row, i) {
+      var bars = row.s.map(function (g) {
+        var s = off(g[0]), d = off(g[1]) + 1;
+        var out = '<span class="bar" style="left:' + s * px + "px;width:" + (d - s) * px + 'px"></span>';
+        if (g[2]) out += '<span class="bar buf" style="left:' + d * px + "px;width:" + g[2] * px + 'px"></span>';
+        return out;
+      }).join("");
+      var flag = row.r ? '<span class="flag" style="left:' + (off(row.r.d) + 0.5) * px + 'px">' + row.r.id + "</span>" : "";
+      var label = row.n + (row.r ? ", risk " + row.r.id + " occurred" : "");
+      return '<button type="button" class="g-row" data-i="' + i + '" aria-pressed="false" aria-label="' + label + '" style="--c:' + row.c + ";--i:" + i + '">' +
+        '<span class="g-label"><i class="dot"></i><span class="tx">' + row.n + "</span></span>" +
+        '<span class="g-track">' + lines + bars + flag + "</span></button>";
+    }).join("");
+
+    chart.innerHTML = head + body;
+    zout.disabled = lv === 0;
+    zin.disabled = lv === LEVELS.length - 1;
+  }
+
+  function select(i) {
+    sel = i;
+    var row = rows[i], last = row.s[row.s.length - 1];
+    var buffer = row.s.reduce(function (a, g) { return a + g[2]; }, 0);
+    var due = T(last[1]), fin = due + last[2] * DAY;
+    detail.innerHTML = "<h3>" + row.n + "</h3>" +
+      '<dl class="kv">' +
+      "<div><dt>Owner</dt><dd>" + row.o + "</dd></div>" +
+      "<div><dt>Start</dt><dd>" + fmt(T(row.s[0][0])) + "</dd></div>" +
+      "<div><dt>Due</dt><dd>" + fmt(due) + "</dd></div>" +
+      "<div><dt>Buffer</dt><dd>" + (buffer ? buffer + " days" : "None") + "</dd></div>" +
+      "<div><dt>Final due</dt><dd>" + fmt(fin) + "</dd></div>" +
+      "<div><dt>Status</dt><dd>Completed</dd></div></dl>" +
+      risks.map(function (k) { return '<p class="risk-note' + (k.id === (row.r && row.r.id) ? "" : " other") + '"><strong>' + k.id + ", " + fmt(T(k.d)) + ", " + k.n + ".</strong> " + k.t + "</p>"; }).join("");
+    Array.prototype.forEach.call(chart.querySelectorAll(".g-row"), function (b) {
+      b.setAttribute("aria-pressed", String(Number(b.dataset.i) === i));
+    });
+  }
+
+  function edges() {
+    gantt.classList.toggle("scrolled", scroller.scrollLeft > 2);
+    gantt.classList.toggle("at-end", scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2);
+  }
+  function view() { return scroller.clientWidth - chart.querySelector(".g-label").offsetWidth; }
+  function jump(day) {
+    scroller.scrollTo({ left: Math.max(0, day * LEVELS[lv] - view() / 2), behavior: reduce ? "auto" : "smooth" });
+  }
+  function zoom(dir) {
+    var n = lv + dir;
+    if (n < 0 || n >= LEVELS.length) return;
+    var centre = (scroller.scrollLeft + view() / 2) / LEVELS[lv];
+    lv = n;
+    render(false);
+    select(sel);
+    scroller.scrollLeft = Math.max(0, centre * LEVELS[lv] - view() / 2);
+    edges();
+  }
+
+  chart.addEventListener("click", function (e) {
+    var b = e.target.closest(".g-row");
+    if (b) select(Number(b.dataset.i));
+  });
+  zin.addEventListener("click", function () { zoom(1); });
+  zout.addEventListener("click", function () { zoom(-1); });
+  Array.prototype.forEach.call(gantt.querySelectorAll("[data-jump]"), function (b) {
+    b.addEventListener("click", function () {
+      var k = b.dataset.jump;
+      if (k === "start") return jump(0);
+      if (k === "end") return jump(days);
+      rows.forEach(function (row, i) {
+        if (row.r && row.r.id === k) { select(i); jump(off(row.r.d)); }
+      });
+    });
+  });
+  scroller.addEventListener("scroll", edges, { passive: true });
+  window.addEventListener("resize", edges);
+
+  /* Drag to pan with a mouse; touch and trackpads scroll natively */
+  var down = false, moved = false, sx = 0, sl = 0;
+  scroller.addEventListener("pointerdown", function (e) {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    down = true; moved = false; sx = e.clientX; sl = scroller.scrollLeft;
+  });
+  window.addEventListener("pointermove", function (e) {
+    if (!down) return;
+    var dx = e.clientX - sx;
+    if (Math.abs(dx) > 4) { moved = true; scroller.classList.add("dragging"); }
+    if (moved) scroller.scrollLeft = sl - dx;
+  });
+  window.addEventListener("pointerup", function () {
+    if (!down) return;
+    down = false; scroller.classList.remove("dragging");
+  });
+  scroller.addEventListener("click", function (e) {
+    if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+  }, true);
+
+  render(true);
+  select(3);
+  edges();
+
+  /* RACI matrix, copied from the RACI sheet */
+  var raci = [
+    ["0.1", "Project charter", "R", "C", "C", "A"],
+    ["0.2", "WBS and Gantt chart", "A/R", "R", "C", "I"],
+    ["0.3", "Risk log", "A/R", "R", "C", "I"],
+    ["0.4", "Progress tracking and guide reviews", "A/R", "R", "C", "C"],
+    ["1.1", "Gather datasets", "A/R", "I", "R", "I"],
+    ["2.1", "Data cleaning", "A", "I", "R", "I"],
+    ["2.2", "Data optimization", "A/R", "I", "C", "I"],
+    ["3.1", "Password model development", "A/R", "C", "I", "I"],
+    ["3.2", "Password model training", "A", "R", "I", "I"],
+    ["3.3", "Password model testing", "A", "R", "I", "I"],
+    ["4.1", "URL model development", "A/R", "C", "I", "I"],
+    ["4.2", "URL model training", "A", "R", "I", "I"],
+    ["4.3", "URL model testing", "A", "R", "I", "I"],
+    ["5.1", "Phishing model development", "A/R", "C", "I", "I"],
+    ["5.2", "Phishing model training", "A", "R", "I", "I"],
+    ["5.3", "Phishing model testing", "A", "R", "I", "I"],
+    ["6.1", "Hash model development", "A", "C", "R", "I"],
+    ["7.1", "Algorithm development", "A/R", "C", "C", "C"],
+    ["7.2", "Comparison matrix", "A/R", "C", "C", "C"],
+    ["8.1", "UI/UX development", "A/R", "C", "C", "I"],
+    ["9", "Integration", "A", "C", "R", "I"],
+    ["10", "Deployment", "A", "C", "R", "I"],
+    ["11", "Final demo and approval", "R", "R", "R", "A"]
+  ];
+  document.getElementById("raci-body").innerHTML = raci.map(function (r) {
+    var cells = r.slice(2).map(function (v) {
+      return '<td class="c"><span class="rc ' + v.replace("/", "") + '">' + v + "</span></td>";
+    }).join("");
+    return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td>" + cells + "</tr>";
+  }).join("");
+})();
+</script>
+</body>
+</html>
