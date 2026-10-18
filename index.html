@@ -274,7 +274,7 @@ footer{text-align:center;color:var(--mute);font-size:13px;padding:40px 5vw;borde
     </tbody></table></div>
 
   <div class="panel"><h3>Lessons I wrote down</h3><p class="sub">From the final report.</p>
-    <div class="facts" style="margin:0"><div><b>TEST EARLIER</b><p>Start testing as soon as systems are ready.</p></div><div><b>PROTECT THE END</b><p>Reserve time for final checks and approvals.</p></div><div><b>WATCH DEPENDENCIES</b><p>Review them regularly and chase important tasks before their deadlines.</p></div></div></div>
+    <div class="facts" style="margin:0"><div><b>TEST EARLIER</b><p>Start testing as soon as systems are ready.</p></div><div><b>PROTECT THE END</b><p>Reserve time for final checks and approvals.</p></div><div><b>WATCH Testing Servers</b><p>Review them regularly and chase important tasks before their deadlines.</p></div></div></div>
   <p class="note">Everything here was simulated: the incident, the team, the test results and the approvals. The planning, tracking and reporting were real practice.</p>
 </div>
 
@@ -333,7 +333,7 @@ const card=f=>`<div class="file"><div class="ic ${f[3]==='XLS'?'x':''}">${f[3]}<
 for(const k in FILES)$('#f-'+k).innerHTML=FILES[k].map(card).join('');
 
 /* ---------- Jira screenshots: edit the captions ---------- */
-const JIRA=['Project board','Timeline view','Epics overview','Incident activation','Containment tasks','Infrastructure recovery','Application recovery','Dependencies','Closure and final status'];
+const JIRA=['Project board','Timeline view','Epics overview','Incident activation','Containment tasks','Infrastructure recovery','Application recovery','Testing Servers','Closure and final status'];
 $('#g9').innerHTML=JIRA.map((c,i)=>`<figure class="slot"><img src="images/phoenix-${i+1}.jpg" alt="${c}" data-lb onerror="this.remove()"><figcaption>IMAGE ${i+1} · images/phoenix-${i+1}.jpg</figcaption><span class="cp">${String(i+1).padStart(2,'0')} · ${c}</span></figure>`).join('');
 
 /* ---------- Viewer ---------- */
