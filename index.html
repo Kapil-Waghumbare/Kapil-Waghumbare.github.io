@@ -328,7 +328,7 @@ px:[
  ['files/Operation_Phoenix_Day_3_Status_Report.pdf','Day 3 Status Report','17 Oct 2026 · At Risk','PDF'],
  ['files/Operation_Phoenix_Day_4_Status_Report.pdf','Day 4 Status Report','18 Oct 2026 · Completed (On Time)','PDF'],
  ['files/Operation_Phoenix_Final_Project_Report.pdf','Final Project Report','Full project summary and lessons learned','PDF']],
-cv:[['files/Kapil_Resume_PC_V4.pdf','Kapil Waghumbare — Résumé','Project Coordinator','PDF']]};
+cv:[['files/Kapil_Waghumbare_Resume_V5.pdf','Kapil Waghumbare — Résumé','Project Coordinator','PDF']]};
 const card=f=>`<div class="file"><div class="ic ${f[3]==='XLS'?'x':''}">${f[3]}</div><div><b>${f[1]}</b><span>${f[2]}</span></div><div class="fa"><button class="b" data-open="${f[0]}" data-t="${f[1]}">Open</button><a class="b g" href="${f[0]}" download>Download</a></div></div>`;
 for(const k in FILES)$('#f-'+k).innerHTML=FILES[k].map(card).join('');
 
